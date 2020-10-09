@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
+  margin-top: 5rem;
 }
 
 .form {
@@ -31,19 +31,41 @@
 .form-label {
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  color: #444;
+  color: #666;
 }
 
 .form-input {
   padding: 0.5rem;
+  border: 0.1rem solid #ddd;
+  color: #666;
   font-size: 1rem;
   border-radius: 0.5rem;
 }
 
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 3pt 2pt #16a085;
+}
+
 .form-submit {
   padding: 1rem;
+  border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
-  background-color: #117a65;
+  background-color: #16a085;
   color: #fff;
+}
+
+.form-submit:hover {
+  cursor: pointer;
+  background-color: #117a65;
+}
+
+.error {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #f1948a;
+  color: #a93226;
+  font-size: 1rem;
 }
