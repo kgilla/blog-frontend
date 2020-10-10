@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
+import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
 import "./blog-card.css";
 
@@ -23,8 +24,8 @@ function BlogCard(props) {
           </Link>
         </header>
 
-        <main>
-          <p className="blog-card-content">{props.post.content}</p>
+        <main className="blog-card-content">
+          {ReactHtmlParser(props.post.content)}
         </main>
         <Link to={`/${props.post._id}`}>
           <footer className="blog-card-footer">

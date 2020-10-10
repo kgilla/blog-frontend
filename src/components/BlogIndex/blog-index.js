@@ -18,19 +18,23 @@ const BlogIndex = () => {
     fetchData();
   }, []);
   return (
-    <div id="blog-index">
+    <div className="container">
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="blog-index">
-          {data.map((post) => (
-            <BlogCard
-              post={post}
-              author={post.author}
-              comments={post.comments}
-              key={post._id}
-            />
-          ))}
+        <div className="container">
+          <h1>All Blog Posts</h1>
+
+          <div className="blog-index">
+            {data.map((post) => (
+              <BlogCard
+                post={post}
+                author={post.author}
+                comments={post.comments}
+                key={post._id}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

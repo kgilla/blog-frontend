@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "@reach/router";
 import moment from "moment";
 import Loader from "../Loader";
 import CommentIndex from "../CommentIndex";
@@ -25,11 +26,19 @@ const BlogPost = (props) => {
   }, [props.postId]);
 
   return (
-    <div>
+    <div className="container">
       {isLoading ? (
         <Loader />
       ) : (
         <div className="blog-post-container">
+          <nav className="blog-post-nav">
+            <Link to={`/${post._id}/update`} post={post}>
+              <button className="nav-link">Edit Post</button>
+            </Link>
+            <Link to={`/${post._id}/delete`} post={post}>
+              <button className="nav-link">Delete Post</button>
+            </Link>
+          </nav>
           <article className="blog-post">
             <header className="blog-post-header">
               <h1 className="blog-post-title">{post.title}</h1>

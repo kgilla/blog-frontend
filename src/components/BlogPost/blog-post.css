@@ -3,6 +3,10 @@
   grid-template-columns: 1fr;
 }
 
+.blog-post-nav {
+  border-bottom: 0.1rem solid #aaa;
+}
+
 .blog-post {
   padding: 2rem;
   background-color: #fff;

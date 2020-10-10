@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Router } from "@reach/router";
+import { Router, Redirect } from "@reach/router";
+
 import "./reset.css";
 import "./App.css";
 
@@ -32,12 +33,21 @@ function App() {
     <div id="App">
       <Navbar user={user} handleLogout={handleLogout} />
       {message ? <div className="success">{message}</div> : null}
-      <Router>
-        <BlogIndex path="/" />
-        <BlogPost path="/:postId" />
-        <Login path="/login" handleLogin={handleLogin} />
-        <BlogForm path="/create" user={user} />
-      </Router>
+      {user ? (
+        <Router>
+          <BlogForm path="/create" user={user} />
+          <BlogForm path="/:id/update" user={user} />
+          <BlogForm path="/:id/delete" user={user} />
+          <BlogIndex path="/" />
+          <BlogPost path="/:postId" />
+        </Router>
+      ) : (
+        <Router>
+          <BlogIndex path="/" />
+          <BlogPost path="/:postId" />
+          <Login path="/login" handleLogin={handleLogin} />
+        </Router>
+      )}
     </div>
   );
 }

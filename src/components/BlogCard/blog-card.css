@@ -1,6 +1,6 @@
 .blog-index {
   display: grid;
-  padding-top: 0.5rem;
+  gap: 2rem;
 }
 
 .blog-card {

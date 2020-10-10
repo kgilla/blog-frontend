@@ -1,3 +1,13 @@
 #blog-form {
-  margin: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 60rem;
+  margin: 4rem;
+}
+
+.form-textarea {
+  resize: vertical;
+  font-family: inherit;
 }
