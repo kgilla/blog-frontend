@@ -4,6 +4,10 @@ import moment from "moment";
 import "./comment.css";
 
 const Comment = (props) => {
+  const handleClick = () => {
+    props.handleDelete(props.comment._id);
+  };
+
   return (
     <div className="comment-container">
       <header className="comment-header">
@@ -14,6 +18,9 @@ const Comment = (props) => {
       </header>
 
       <p className="comment-content">{props.comment.content}</p>
+      <footer>
+        <button onClick={handleClick}>Delete Comment</button>
+      </footer>
     </div>
   );
 };

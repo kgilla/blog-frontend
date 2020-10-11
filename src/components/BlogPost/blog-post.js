@@ -56,7 +56,11 @@ const BlogPost = (props) => {
             <footer></footer>
           </article>
           <div className="comment-section">
-            <CommentIndex comments={comments} />
+            <CommentIndex
+              comments={comments}
+              postID={post._id}
+              user={props.user}
+            />
           </div>
         </div>
       )}

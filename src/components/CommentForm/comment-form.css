@@ -1,0 +1,11 @@
+.comment-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.comment-form-heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+}

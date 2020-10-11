@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { navigate } from "@reach/router";
 
 import "./BlogForm.css";
 
@@ -35,7 +36,7 @@ const BlogForm = (props) => {
     init();
   }, [props.path]);
 
-  const create = async (title, content) => {
+  const create = async () => {
     setIsLoading(true);
     const URL = "https://api-myblog.herokuapp.com/posts/create";
     const response = await fetch(URL, {
@@ -47,13 +48,40 @@ const BlogForm = (props) => {
       body: JSON.stringify({ title, content }),
     });
     const data = await response.json();
-    console.log(data);
     setIsLoading(false);
+    navigate(`/${data.post._id}`);
   };
 
-  const update = async () => {};
+  const update = async () => {
+    setIsLoading(true);
+    const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/update`;
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.user.token}`,
+      },
+      body: JSON.stringify({ title, content }),
+    });
+    await response.json();
+    setIsLoading(false);
+    navigate(`/${props.id}`);
+  };
 
-  const destroy = async () => {};
+  const destroy = async () => {
+    setIsLoading(true);
+    const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/delete`;
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.user.token}`,
+      },
+    });
+    await response.json();
+    setIsLoading(false);
+    navigate("/");
+  };
 
   const handleEditorChange = (e) => {
     setContent(e.target.getContent());
@@ -65,16 +93,27 @@ const BlogForm = (props) => {
   };
 
   const handleSubmit = () => {
-    console.log(title, blurb, content);
-    console.log(mode);
-    // create(title, content);
+    if (mode === "create") {
+      create();
+    } else if (mode === "update") {
+      update();
+    } else if (mode === "delete") {
+      destroy();
+    }
   };
 
   return (
     <div className="form-container">
       {isLoading ? <Loader /> : null}
       <div id="blog-form">
-        <h2 className="form-heading">New Blog Post</h2>
+        <h2 className="form-heading">
+          {" "}
+          {mode === "create"
+            ? "Create Blog Post"
+            : mode === "update"
+            ? "Update Blog Post"
+            : "Delete Blog Post"}
+        </h2>
         <div className="form-section">
           <label htmlFor="title" className="form-label">
             Title
@@ -112,15 +151,19 @@ const BlogForm = (props) => {
               ],
               toolbar:
                 "undo redo | formatselect | bold italic | \
-          alignleft aligncenter alignright | \
-          bullist numlist outdent indent | help",
+              alignleft aligncenter alignright | \
+              bullist numlist outdent indent | help",
             }}
             onChange={handleEditorChange}
             value={content}
           />
         </div>
         <button type="button" className="form-submit" onClick={handleSubmit}>
-          Create Post
+          {mode === "create"
+            ? "Create Blog Post"
+            : mode === "update"
+            ? "Update Blog Post"
+            : "Delete Blog Post"}
         </button>
       </div>
     </div>

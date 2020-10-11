@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Router, Redirect } from "@reach/router";
+import { Router } from "@reach/router";
 
 import "./reset.css";
 import "./App.css";
@@ -39,7 +39,7 @@ function App() {
           <BlogForm path="/:id/update" user={user} />
           <BlogForm path="/:id/delete" user={user} />
           <BlogIndex path="/" />
-          <BlogPost path="/:postId" />
+          <BlogPost path="/:postId" user={user} />
         </Router>
       ) : (
         <Router>

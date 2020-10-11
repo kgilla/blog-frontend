@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
+  padding: 1rem;
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -14,14 +15,25 @@
 }
 
 .blog-card-image-box {
-  width: auto;
-  height: 10rem;
+  display: flex;
+  height: 15rem;
+  overflow: hidden;
+}
+
+.blog-card-image {
+  align-self: flex-start;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .blog-card-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: space-between;
+  gap: 0.5rem;
 }
 
 a {
@@ -31,24 +43,19 @@ a {
 .blog-card-header {
 }
 
-.blog-card-header-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  color: #888;
-  font-size: 0.8rem;
-}
-
 .blog-card-title {
-  padding: 0 1rem 1rem 1rem;
-  font-size: 1.4rem;
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #222;
 }
 
+.blog-detail-date {
+  font-size: 1rem;
+  color: #888;
+}
+
 .blog-card-content {
-  padding: 1rem;
   padding-top: 0;
   color: #444;
   font-size: 1rem;
@@ -64,14 +71,6 @@ a {
   border-top: 0.1rem solid #888;
   color: #666;
   font-size: 0.8rem;
-}
-
-.blog-detail-date {
-  margin-right: 1rem;
-}
-
-.blog-detail-comment-count {
-  margin-right: 1rem;
 }
 
 @media (max-width: 599px) {
@@ -90,6 +89,9 @@ a {
 }
 
 @media (min-width: 1200px) {
+  .blog-index {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 @media (min-width: 1800px) {
