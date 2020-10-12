@@ -14,8 +14,8 @@ const BlogPost = (props) => {
   let [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log(props);
     const fetchData = async () => {
+      try {
       setIsLoading(true);
       const URL = `https://api-myblog.herokuapp.com/posts/${props.postID}`;
       const response = await fetch(URL);
@@ -24,6 +24,9 @@ const BlogPost = (props) => {
       setAuthor(data.author);
       setComments(data.post.comments);
       setIsLoading(false);
+      } catch(err) {
+        console.log(err)
+      }
     };
     fetchData();
   }, [props.postID]);
@@ -34,16 +37,8 @@ const BlogPost = (props) => {
         <Loader />
       ) : (
         <div className="blog-post-container">
-          <nav className="blog-post-nav">
-            <Link to={`/posts/${post._id}/update`} post={post}>
-              <button className="nav-link">Edit Post</button>
-            </Link>
-            <Link to={`/posts/${post._id}/delete`} post={post}>
-              <button className="nav-link">Delete Post</button>
-            </Link>
-          </nav>
           <article className="blog-post">
-            <img
+            <img className="blog-post-image"
               src="https://api-myblog.herokuapp.com/images/1.jpg"
               alt="whateber"
             ></img>
@@ -57,6 +52,14 @@ const BlogPost = (props) => {
                 </h4>
               </div>
             </header>
+            <nav className="blog-post-nav">
+            <Link to={`/posts/${post._id}/update`} post={post}>
+              <button className="blog-post-option">Edit Post</button>
+            </Link>
+            <Link to={`/posts/${post._id}/delete`} post={post}>
+              <button className="blog-post-option">Delete Post</button>
+            </Link>
+          </nav>
             <main className="blog-post-content">
               {ReactHtmlParser(post.content)}
             </main>

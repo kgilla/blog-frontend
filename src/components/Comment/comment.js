@@ -19,7 +19,7 @@ const Comment = (props) => {
 
       <p className="comment-content">{props.comment.content}</p>
       <footer>
-        <button onClick={handleClick}>Delete Comment</button>
+        <button className="comment-delete" onClick={handleClick}>Delete Comment</button>
       </footer>
     </div>
   );

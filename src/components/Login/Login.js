@@ -18,11 +18,11 @@ const Login = (props) => {
     });
     const data = await response.json();
     data.user ? handleUser(data) : setError(data.message);
-    await navigate("/");
   };
 
-  const handleUser = (data) => {
+  const handleUser = async (data) => {
     props.handleLogin(data);
+    await navigate("/");
   };
 
   const handleChange = (e) => {
@@ -35,9 +35,15 @@ const Login = (props) => {
     login(username, password);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSubmit()
+    }
+  }
+
   return (
     <div className="form-container">
-      <form className="form">
+      <form className="form" id="login-form" onKeyDown={handleKeyDown}>
         <h2 className="form-heading">Log In</h2>
         {error ? <div className="error">{error}</div> : null}
         <div className="form-section">

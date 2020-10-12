@@ -25,3 +25,18 @@
 
 .comment-content {
 }
+
+.comment-delete {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #c0392b;
+}
+
+.comment-delete:hover {
+  cursor: pointer;
+  background-color: #922b21;
+}

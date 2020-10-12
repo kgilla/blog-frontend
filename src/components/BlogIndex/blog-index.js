@@ -8,12 +8,16 @@ const BlogIndex = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      const URL = "https://api-myblog.herokuapp.com/posts/";
-      const response = await fetch(URL);
-      const data = await response.json();
-      setPosts(data.posts);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const URL = "https://api-myblog.herokuapp.com/posts/";
+        const response = await fetch(URL);
+        const data = await response.json();
+        setPosts(data.posts);
+        setIsLoading(false);
+      } catch(err) {
+        console.log(err)
+      }
     };
     fetchData();
   }, []);
@@ -23,8 +27,8 @@ const BlogIndex = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="container">
-          <h1>All Blog Posts</h1>
+        <div className="blog-index-container">
+          <h2 className="sub-heading">All Blog Posts</h2>
 
           <div className="blog-index">
             {posts.map((post) => (

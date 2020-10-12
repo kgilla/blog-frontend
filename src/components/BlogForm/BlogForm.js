@@ -55,19 +55,23 @@ const BlogForm = (props) => {
   };
 
   const update = async () => {
-    setIsLoading(true);
-    const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/update`;
-    const response = await fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${props.user.token}`,
-      },
-      body: JSON.stringify({ title, content, blurb }),
-    });
-    await response.json();
-    setIsLoading(false);
-    navigate(`/${props.id}`);
+    try {
+      setIsLoading(true);
+      const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/update`;
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${props.user.token}`,
+        },
+        body: JSON.stringify({ title, content, blurb }),
+      });  
+      await response.json();
+      setIsLoading(false);
+      await navigate(`/${props.id}`);
+    } catch(err) {
+      console.log(err)
+    }
   };
 
   const destroy = async () => {

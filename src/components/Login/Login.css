@@ -11,6 +11,26 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+#blog-form {
+  padding: 2rem;
+  border: 0.1rem solid #ddd;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#login-form {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 0.1rem solid #ddd;
+  border-radius: 0.5rem;
 }
 
 .form-heading {

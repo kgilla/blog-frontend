@@ -9,6 +9,7 @@ import BlogIndex from "../BlogIndex";
 import BlogPost from "../BlogPost";
 import Login from "../Login";
 import BlogForm from "../BlogForm";
+import Flash from '../Flash'
 
 import local from "../../store/local";
 
@@ -19,8 +20,8 @@ function App() {
   const handleLogin = (data) => {
     let user = { id: data._id, name: data.user.fullname, token: data.token };
     setUser(user);
-    // local.setUser(user);
-    // setMessage(`Successfully logged in as ${user.name}`);
+    local.setUser(user);
+    setMessage(`Successfully logged in as ${user.name}`);
   };
 
   const handleLogout = () => {
@@ -32,6 +33,7 @@ function App() {
   return (
     <div id="App">
       <Navbar user={user} handleLogout={handleLogout} />
+      {message ? <Flash message={message}/> : null}
       <Router>
         <BlogForm path="/posts/create" user={user} />
         <BlogForm path="/posts/:id/update" user={user} />
