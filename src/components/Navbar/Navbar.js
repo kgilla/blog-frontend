@@ -18,7 +18,7 @@ const Navbar = (props) => {
             </button>
           </Link>
           <div id="nav-links">
-            <Link to="/create">
+            <Link to="/posts/create">
               <button className="nav-link">New Blog Post</button>
             </Link>
             <button className="nav-link">Contact</button>

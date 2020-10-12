@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Redirect } from "@reach/router";
+import { useNavigate } from "@reach/router";
 import "./Login.css";
 
 const Login = (props) => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   let [error, setError] = useState("");
-  let [success, setSuccess] = useState(false);
 
-  const login = async (username, password) => {
+  const navigate = useNavigate();
+
+  const login = async () => {
     const URL = "https://api-myblog.herokuapp.com/users/login";
     const response = await fetch(URL, {
       method: "POST",
@@ -16,13 +17,12 @@ const Login = (props) => {
       body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
-    console.log(data);
     data.user ? handleUser(data) : setError(data.message);
+    await navigate("/");
   };
 
   const handleUser = (data) => {
     props.handleLogin(data);
-    setSuccess(true);
   };
 
   const handleChange = (e) => {
@@ -35,9 +35,7 @@ const Login = (props) => {
     login(username, password);
   };
 
-  return success ? (
-    <Redirect to="/" noThrow />
-  ) : (
+  return (
     <div className="form-container">
       <form className="form">
         <h2 className="form-heading">Log In</h2>

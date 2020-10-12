@@ -3,7 +3,7 @@ import BlogCard from "../BlogCard";
 import Loader from "../Loader";
 
 const BlogIndex = () => {
-  let [data, setData] = useState([]);
+  let [posts, setPosts] = useState([]);
   let [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -12,11 +12,12 @@ const BlogIndex = () => {
       const URL = "https://api-myblog.herokuapp.com/posts/";
       const response = await fetch(URL);
       const data = await response.json();
-      setData(data.posts);
+      setPosts(data.posts);
       setIsLoading(false);
     };
     fetchData();
   }, []);
+
   return (
     <div className="container">
       {isLoading ? (
@@ -26,7 +27,7 @@ const BlogIndex = () => {
           <h1>All Blog Posts</h1>
 
           <div className="blog-index">
-            {data.map((post) => (
+            {posts.map((post) => (
               <BlogCard
                 post={post}
                 author={post.author}

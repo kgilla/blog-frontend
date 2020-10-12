@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
+import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
+
 import Loader from "../Loader";
 import CommentIndex from "../CommentIndex";
 import "./blog-post.css";
 
 const BlogPost = (props) => {
-  let [post, setPost] = useState({});
-  let [author, setAuthor] = useState({});
-  let [comments, setComments] = useState([]);
+  let [post, setPost] = useState("");
+  let [author, setAuthor] = useState("");
+  let [comments, setComments] = useState("");
   let [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log(props);
     const fetchData = async () => {
       setIsLoading(true);
-      const URL = `https://api-myblog.herokuapp.com/posts/${props.postId}`;
+      const URL = `https://api-myblog.herokuapp.com/posts/${props.postID}`;
       const response = await fetch(URL);
       const data = await response.json();
       setPost(data.post);
@@ -23,7 +26,7 @@ const BlogPost = (props) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [props.postId]);
+  }, [props.postID]);
 
   return (
     <div className="container">
@@ -32,14 +35,18 @@ const BlogPost = (props) => {
       ) : (
         <div className="blog-post-container">
           <nav className="blog-post-nav">
-            <Link to={`/${post._id}/update`} post={post}>
+            <Link to={`/posts/${post._id}/update`} post={post}>
               <button className="nav-link">Edit Post</button>
             </Link>
-            <Link to={`/${post._id}/delete`} post={post}>
+            <Link to={`/posts/${post._id}/delete`} post={post}>
               <button className="nav-link">Delete Post</button>
             </Link>
           </nav>
           <article className="blog-post">
+            <img
+              src="https://api-myblog.herokuapp.com/images/1.jpg"
+              alt="whateber"
+            ></img>
             <header className="blog-post-header">
               <h1 className="blog-post-title">{post.title}</h1>
               <div className="blog-post-details-box">
@@ -50,8 +57,8 @@ const BlogPost = (props) => {
                 </h4>
               </div>
             </header>
-            <main className="blog-post-content-container">
-              <p className="blog-post-content">{post.content}</p>
+            <main className="blog-post-content">
+              {ReactHtmlParser(post.content)}
             </main>
             <footer></footer>
           </article>

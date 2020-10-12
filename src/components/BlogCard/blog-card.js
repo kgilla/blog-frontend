@@ -10,14 +10,14 @@ function BlogCard(props) {
       <div className="blog-card-image-box">
         <img
           className="blog-card-image"
-          src="https://i.imgur.com/QGReA6i.jpg"
+          src="https://api-myblog.herokuapp.com/images/1.jpg"
           alt="something"
         ></img>
       </div>
 
       <div className="blog-card-main">
         <header className="blog-card-header">
-          <Link to={`/${props.post._id}`}>
+          <Link to={`/posts/${props.post._id}`}>
             <h2 className="blog-card-title">{props.post.title}</h2>
           </Link>
           <h4 className="blog-detail-date">
@@ -28,7 +28,7 @@ function BlogCard(props) {
         <main className="blog-card-content">
           {ReactHtmlParser(props.post.content)}
         </main>
-        <Link to={`/${props.post._id}`}>
+        <Link to={`/posts/${props.post._id}`}>
           <footer className="blog-card-footer">
             <h4>READ MORE</h4>
           </footer>

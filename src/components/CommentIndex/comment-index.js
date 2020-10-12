@@ -28,7 +28,7 @@ const Comments = (props) => {
       <h1 className="comment-index-heading">
         Comments ({comments ? comments.length : "0"})
       </h1>
-      {comments.length > 0 ? (
+      {props.comments.length > 0 ? (
         comments.map((comment) => (
           <Comment
             comment={comment}

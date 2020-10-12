@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "@reach/router";
 
 import "./BlogForm.css";
 
@@ -12,6 +12,8 @@ const BlogForm = (props) => {
   let [blurb, setBlurb] = useState("");
   let [isLoading, setIsLoading] = useState(false);
   let [mode, setMode] = useState("create");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPost = async (id) => {
@@ -25,16 +27,16 @@ const BlogForm = (props) => {
       setIsLoading(false);
     };
     const init = () => {
-      if (props.path === "/:id/update" && mode !== "update") {
+      if (props.path === "/posts/:id/update" && mode !== "update") {
         setMode("update");
         getPost(props.id);
-      } else if (props.path === "/:id/delete" && mode !== "delete") {
+      } else if (props.path === "/posts/:id/delete" && mode !== "delete") {
         setMode("delete");
         getPost(props.id);
       }
     };
     init();
-  }, [props.path]);
+  }, [props.path, mode, props.id]);
 
   const create = async () => {
     setIsLoading(true);
@@ -45,7 +47,7 @@ const BlogForm = (props) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.user.token}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ title, content, blurb }),
     });
     const data = await response.json();
     setIsLoading(false);
@@ -61,7 +63,7 @@ const BlogForm = (props) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.user.token}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ title, content, blurb }),
     });
     await response.json();
     setIsLoading(false);
@@ -83,8 +85,8 @@ const BlogForm = (props) => {
     navigate("/");
   };
 
-  const handleEditorChange = (e) => {
-    setContent(e.target.getContent());
+  const handleEditorChange = (content) => {
+    setContent(content);
   };
 
   const handleChange = (e) => {
@@ -142,7 +144,7 @@ const BlogForm = (props) => {
             apiKey="abh3yg0xpuwi7wp76gc8etjalbd4yg93ib50ubokso0npxiq"
             init={{
               height: 500,
-              menubar: false,
+              menubar: true,
               plugins: [
                 "advlist autolink lists link image",
                 "charmap print preview anchor help",
@@ -154,7 +156,7 @@ const BlogForm = (props) => {
               alignleft aligncenter alignright | \
               bullist numlist outdent indent | help",
             }}
-            onChange={handleEditorChange}
+            onEditorChange={handleEditorChange}
             value={content}
           />
         </div>

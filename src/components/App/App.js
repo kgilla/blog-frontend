@@ -19,8 +19,8 @@ function App() {
   const handleLogin = (data) => {
     let user = { id: data._id, name: data.user.fullname, token: data.token };
     setUser(user);
-    local.setUser(user);
-    setMessage(`Successfully logged in as ${user.name}`);
+    // local.setUser(user);
+    // setMessage(`Successfully logged in as ${user.name}`);
   };
 
   const handleLogout = () => {
@@ -32,22 +32,14 @@ function App() {
   return (
     <div id="App">
       <Navbar user={user} handleLogout={handleLogout} />
-      {message ? <div className="success">{message}</div> : null}
-      {user ? (
-        <Router>
-          <BlogForm path="/create" user={user} />
-          <BlogForm path="/:id/update" user={user} />
-          <BlogForm path="/:id/delete" user={user} />
-          <BlogIndex path="/" />
-          <BlogPost path="/:postId" user={user} />
-        </Router>
-      ) : (
-        <Router>
-          <BlogIndex path="/" />
-          <BlogPost path="/:postId" />
-          <Login path="/login" handleLogin={handleLogin} />
-        </Router>
-      )}
+      <Router>
+        <BlogForm path="/posts/create" user={user} />
+        <BlogForm path="/posts/:id/update" user={user} />
+        <BlogForm path="/posts/:id/delete" user={user} />
+        <BlogIndex path="/" user={user} default />
+        <BlogPost path="/posts/:postID" user={user} />
+        <Login path="/login" handleLogin={handleLogin} />
+      </Router>
     </div>
   );
 }
