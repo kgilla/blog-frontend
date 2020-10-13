@@ -10,8 +10,8 @@ const BlogForm = (props) => {
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
   let [blurb, setBlurb] = useState("");
-  let [blurbImage, setBlurbImage] = useState("")
-  let [blurbImageAlt, setBlurbImageAlt] = useState("")
+  let [blurbImage, setBlurbImage] = useState("");
+  let [blurbImageAlt, setBlurbImageAlt] = useState("");
   let [isLoading, setIsLoading] = useState(false);
   let [mode, setMode] = useState("create");
 
@@ -26,8 +26,8 @@ const BlogForm = (props) => {
       setTitle(data.post.title);
       setBlurb(data.post.blurb);
       setContent(data.post.content);
-      setBlurbImage(data.post.blurbImage)
-      setBlurbImageAlt(data.post.blurbImageAlt)
+      setBlurbImage(data.post.blurbImage);
+      setBlurbImageAlt(data.post.blurbImageAlt);
       setIsLoading(false);
     };
     const init = () => {
@@ -42,7 +42,7 @@ const BlogForm = (props) => {
     init();
   }, [props.path, mode, props.id]);
 
-  const create = async () => {
+  const create = async (post) => {
     setIsLoading(true);
     const URL = "https://api-myblog.herokuapp.com/posts/create";
     const response = await fetch(URL, {
@@ -51,14 +51,15 @@ const BlogForm = (props) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.user.token}`,
       },
-      body: JSON.stringify({ title, content, blurb, blurbImage, blurbImageAlt }),
+      body: JSON.stringify(post),
     });
     const data = await response.json();
     setIsLoading(false);
     navigate(`/${data.post._id}`);
   };
 
-  const update = async () => {
+  const update = async (post) => {
+    console.log(post);
     try {
       setIsLoading(true);
       const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/update`;
@@ -68,13 +69,13 @@ const BlogForm = (props) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${props.user.token}`,
         },
-        body: JSON.stringify({ title, content, blurb, blurbImage, blurbImageAlt }),
-      });  
+        body: JSON.stringify(post),
+      });
       await response.json();
       setIsLoading(false);
       await navigate(`/${props.id}`);
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -98,18 +99,23 @@ const BlogForm = (props) => {
   };
 
   const handleChange = (e) => {
-    const v = e.target.value
-    e.target.name === "title" ? setTitle(v) : 
-    e.target.name === "blurb" ? setBlurb(v) : 
-    e.target.name === "blurbImage" ? setBlurbImage(v) :
-    setBlurbImageAlt(v);
+    const v = e.target.value;
+    e.target.name === "title"
+      ? setTitle(v)
+      : e.target.name === "blurb"
+      ? setBlurb(v)
+      : e.target.name === "blurbImage"
+      ? setBlurbImage(v)
+      : setBlurbImageAlt(v);
   };
 
   const handleSubmit = () => {
+    const post = { title, blurb, blurbImage, blurbImageAlt, content };
+    console.log(post);
     if (mode === "create") {
-      create();
+      create(post);
     } else if (mode === "update") {
-      update();
+      update(post);
     } else if (mode === "delete") {
       destroy();
     }
@@ -161,8 +167,8 @@ const BlogForm = (props) => {
             value={blurbImage}
             onChange={handleChange}
           />
-                  </div>
-                  <div className="form-section">
+        </div>
+        <div className="form-section">
           <label htmlFor="blurbImageAlt" className="form-label">
             Blurb Image Alternate
           </label>
@@ -173,7 +179,7 @@ const BlogForm = (props) => {
             value={blurbImageAlt}
             onChange={handleChange}
           />
-                  </div>
+        </div>
 
         <div className="form-section">
           <Editor

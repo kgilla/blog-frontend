@@ -4,7 +4,6 @@
 }
 
 .blog-card {
-  width: 80%;
   display: flex;
   flex-direction: row;
   background-color: #fff;

@@ -16,16 +16,16 @@ const BlogPost = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-      setIsLoading(true);
-      const URL = `https://api-myblog.herokuapp.com/posts/${props.postID}`;
-      const response = await fetch(URL);
-      const data = await response.json();
-      setPost(data.post);
-      setAuthor(data.post.author);
-      setComments(data.post.comments);
-      setIsLoading(false);
-      } catch(err) {
-        console.log(err)
+        setIsLoading(true);
+        const URL = `https://api-myblog.herokuapp.com/posts/${props.postID}`;
+        const response = await fetch(URL);
+        const data = await response.json();
+        setPost(data.post);
+        setAuthor(data.post.author);
+        setComments(data.post.comments);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
       }
     };
     fetchData();
@@ -38,10 +38,6 @@ const BlogPost = (props) => {
       ) : (
         <div className="blog-post-container">
           <article className="blog-post">
-            <img className="blog-post-image"
-              src="https://api-myblog.herokuapp.com/images/1.jpg"
-              alt="whateber"
-            ></img>
             <header className="blog-post-header">
               <h1 className="blog-post-title">{post.title}</h1>
               <div className="blog-post-details-box">
@@ -53,25 +49,26 @@ const BlogPost = (props) => {
               </div>
             </header>
             <nav className="blog-post-nav">
-            <Link to={`/posts/${post._id}/update`} post={post}>
-              <button className="blog-post-option">Edit Post</button>
-            </Link>
-            <Link to={`/posts/${post._id}/delete`} post={post}>
-              <button className="blog-post-option">Delete Post</button>
-            </Link>
-          </nav>
+              <Link to={`/posts/${post._id}/update`} post={post}>
+                <button className="blog-post-option">Edit Post</button>
+              </Link>
+              <Link to={`/posts/${post._id}/delete`} post={post}>
+                <button className="blog-post-option">Delete Post</button>
+              </Link>
+            </nav>
             <main className="blog-post-content">
               {ReactHtmlParser(post.content)}
             </main>
-            <footer></footer>
+            <footer>
+              <CommentIndex
+                comments={comments}
+                postID={post._id}
+                user={props.user}
+              />
+            </footer>
           </article>
-          <div className="comment-section">
-            <CommentIndex
-              comments={comments}
-              postID={post._id}
-              user={props.user}
-            />
-          </div>
+
+          <div className="comment-section"></div>
         </div>
       )}
     </div>

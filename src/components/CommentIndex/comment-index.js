@@ -20,7 +20,11 @@ const Comments = (props) => {
   };
 
   const handleNewComment = (newComment) => {
-    setComments((comments) => [...comments, newComment]);
+    if (comments) {
+      setComments((comments) => [...comments, newComment]);
+    } else {
+      setComments([newComment]);
+    }
   };
 
   return (
