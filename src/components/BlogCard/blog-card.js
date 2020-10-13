@@ -10,8 +10,8 @@ function BlogCard(props) {
       <div className="blog-card-image-box">
         <img
           className="blog-card-image"
-          src="https://api-myblog.herokuapp.com/images/1.jpg"
-          alt="something"
+          src={props.post.blurbImage}
+          alt={props.post.blurbImageAlt}
         ></img>
       </div>
 
@@ -26,7 +26,7 @@ function BlogCard(props) {
         </header>
 
         <main className="blog-card-content">
-          {ReactHtmlParser(props.post.content)}
+          {ReactHtmlParser(props.post.blurb)}
         </main>
         <Link to={`/posts/${props.post._id}`}>
           <footer className="blog-card-footer">

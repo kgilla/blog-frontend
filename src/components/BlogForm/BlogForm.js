@@ -10,6 +10,8 @@ const BlogForm = (props) => {
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
   let [blurb, setBlurb] = useState("");
+  let [blurbImage, setBlurbImage] = useState("")
+  let [blurbImageAlt, setBlurbImageAlt] = useState("")
   let [isLoading, setIsLoading] = useState(false);
   let [mode, setMode] = useState("create");
 
@@ -24,6 +26,8 @@ const BlogForm = (props) => {
       setTitle(data.post.title);
       setBlurb(data.post.blurb);
       setContent(data.post.content);
+      setBlurbImage(data.post.blurbImage)
+      setBlurbImageAlt(data.post.blurbImageAlt)
       setIsLoading(false);
     };
     const init = () => {
@@ -47,7 +51,7 @@ const BlogForm = (props) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${props.user.token}`,
       },
-      body: JSON.stringify({ title, content, blurb }),
+      body: JSON.stringify({ title, content, blurb, blurbImage, blurbImageAlt }),
     });
     const data = await response.json();
     setIsLoading(false);
@@ -64,7 +68,7 @@ const BlogForm = (props) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${props.user.token}`,
         },
-        body: JSON.stringify({ title, content, blurb }),
+        body: JSON.stringify({ title, content, blurb, blurbImage, blurbImageAlt }),
       });  
       await response.json();
       setIsLoading(false);
@@ -94,8 +98,11 @@ const BlogForm = (props) => {
   };
 
   const handleChange = (e) => {
-    let a = e.target.value;
-    e.target.name === "title" ? setTitle(a) : setBlurb(a);
+    const v = e.target.value
+    e.target.name === "title" ? setTitle(v) : 
+    e.target.name === "blurb" ? setBlurb(v) : 
+    e.target.name === "blurbImage" ? setBlurbImage(v) :
+    setBlurbImageAlt(v);
   };
 
   const handleSubmit = () => {
@@ -143,6 +150,31 @@ const BlogForm = (props) => {
             onChange={handleChange}
           ></textarea>
         </div>
+        <div className="form-section">
+          <label htmlFor="blurbImage" className="form-label">
+            Blurb Image Path
+          </label>
+          <input
+            type="text"
+            name="blurbImage"
+            className="form-input"
+            value={blurbImage}
+            onChange={handleChange}
+          />
+                  </div>
+                  <div className="form-section">
+          <label htmlFor="blurbImageAlt" className="form-label">
+            Blurb Image Alternate
+          </label>
+          <input
+            type="text"
+            name="blurbImageAlt"
+            className="form-input"
+            value={blurbImageAlt}
+            onChange={handleChange}
+          />
+                  </div>
+
         <div className="form-section">
           <Editor
             apiKey="abh3yg0xpuwi7wp76gc8etjalbd4yg93ib50ubokso0npxiq"

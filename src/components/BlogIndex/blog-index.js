@@ -29,7 +29,6 @@ const BlogIndex = () => {
       ) : (
         <div className="blog-index-container">
           <h2 className="sub-heading">All Blog Posts</h2>
-
           <div className="blog-index">
             {posts.map((post) => (
               <BlogCard

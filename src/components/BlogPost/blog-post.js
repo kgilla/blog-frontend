@@ -21,7 +21,7 @@ const BlogPost = (props) => {
       const response = await fetch(URL);
       const data = await response.json();
       setPost(data.post);
-      setAuthor(data.author);
+      setAuthor(data.post.author);
       setComments(data.post.comments);
       setIsLoading(false);
       } catch(err) {
