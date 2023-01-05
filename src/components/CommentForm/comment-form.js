@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BASE_URL } from "../../const";
 import "./comment-form.css";
 
 const CommentForm = (props) => {
@@ -6,7 +7,7 @@ const CommentForm = (props) => {
   let [content, setContent] = useState("");
 
   const postData = async () => {
-    const URL = `https://api-myblog.herokuapp.com/comments/create`;
+    const URL = `${BASE_URL}/comments/create`;
     const response = await fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

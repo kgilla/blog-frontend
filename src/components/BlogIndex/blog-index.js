@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BASE_URL } from "../../const";
 import BlogCard from "../BlogCard";
 import Loader from "../Loader";
 
@@ -10,7 +11,7 @@ const BlogIndex = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const URL = "https://api-myblog.herokuapp.com/posts/";
+        const URL = `${BASE_URL}/posts/`;
         const response = await fetch(URL);
         const data = await response.json();
         setPosts(data.posts);

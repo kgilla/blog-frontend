@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import "./Login.css";
+import { BASE_URL } from "../../const";
 
 const Login = (props) => {
   let [username, setUsername] = useState("");
@@ -10,7 +11,7 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   const login = async () => {
-    const URL = "https://api-myblog.herokuapp.com/users/login";
+    const URL =`${BASE_URL}/users/login`;
     const response = await fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

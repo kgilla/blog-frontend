@@ -5,6 +5,7 @@ import { useNavigate } from "@reach/router";
 import "./BlogForm.css";
 
 import Loader from "../Loader";
+import { BASE_URL } from "../../const";
 
 const BlogForm = (props) => {
   let [title, setTitle] = useState("");
@@ -20,7 +21,7 @@ const BlogForm = (props) => {
   useEffect(() => {
     const getPost = async (id) => {
       setIsLoading(true);
-      const URL = `https://api-myblog.herokuapp.com/posts/${id}`;
+      const URL = `${BASE_URL}/posts/${id}`;
       const response = await fetch(URL);
       const data = await response.json();
       setTitle(data.post.title);
@@ -44,7 +45,7 @@ const BlogForm = (props) => {
 
   const create = async (post) => {
     setIsLoading(true);
-    const URL = "https://api-myblog.herokuapp.com/posts/create";
+    const URL = `${BASE_URL}/posts/create`;
     const response = await fetch(URL, {
       method: "POST",
       headers: {
@@ -62,7 +63,7 @@ const BlogForm = (props) => {
     console.log(post);
     try {
       setIsLoading(true);
-      const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/update`;
+      const URL = `${BASE_URL}/posts/${props.id}/update`;
       const response = await fetch(URL, {
         method: "POST",
         headers: {
@@ -81,7 +82,7 @@ const BlogForm = (props) => {
 
   const destroy = async () => {
     setIsLoading(true);
-    const URL = `https://api-myblog.herokuapp.com/posts/${props.id}/delete`;
+    const URL = `${BASE_URL}/posts/${props.id}/delete`;
     const response = await fetch(URL, {
       method: "POST",
       headers: {

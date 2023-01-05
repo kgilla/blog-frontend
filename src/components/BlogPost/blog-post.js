@@ -6,6 +6,7 @@ import moment from "moment";
 import Loader from "../Loader";
 import CommentIndex from "../CommentIndex";
 import "./blog-post.css";
+import { BASE_URL } from "../../const";
 
 const BlogPost = (props) => {
   let [post, setPost] = useState("");
@@ -17,7 +18,7 @@ const BlogPost = (props) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const URL = `https://api-myblog.herokuapp.com/posts/${props.postID}`;
+        const URL = `${BASE_URL}/posts/${props.postID}`;
         const response = await fetch(URL);
         const data = await response.json();
         setPost(data.post);
